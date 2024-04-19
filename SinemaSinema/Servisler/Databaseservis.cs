@@ -33,7 +33,7 @@ namespace SinemaSinema.Servisler
         public int ReturnFilmId(string filmAd)
         {
             var film = _dbContext.Film.FirstOrDefault(f => f.filmAd == filmAd);
-            return film != null ? film.id : -1; // Eğer film bulunamazsa -1 döndürülebilir veya başka bir uygun değer
+            return film != null ? film.id : -1; 
         }
         public int GetSalonIdByFilmAndSeans(int filmId, string seansZamani)
         {
@@ -42,7 +42,7 @@ namespace SinemaSinema.Servisler
             {
                 return seans.salonId;
             }
-            return -1; // veya başka bir varsayılan değer döndürebilirsiniz
+            return -1; 
         }
         public int GetSeansIdByFilmAndSeansTime(int filmId, string seansZamani)
         {
@@ -51,7 +51,7 @@ namespace SinemaSinema.Servisler
             {
                 return seans.id;
             }
-            return -1; // veya başka bir varsayılan değer döndürebilirsiniz
+            return -1; 
         }
 
 

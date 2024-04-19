@@ -35,14 +35,14 @@ namespace SinemaSinema
             int buttonNumber = 1;
             for (int i = 5; i <= 54; i++)
             {
-                // Butonları bulmak için konteynerde (örneğin, Form üzerinde) butonları isimlerine göre arayabiliriz
+                // Butonları bulmak için konteynerde butonları isimlerine göre arayabiliriz
                 Button button = Controls.Find("button" + i, true).FirstOrDefault() as Button;
                 if (button != null)
                 {
                     // Her bir butona sırasıyla 1'den 50'ye kadar olan sayıları atıyoruz
                     
                     button.Text = buttonNumber.ToString();
-                    button.Click += button_Click; // Butonların Click olayına bağlanma
+                    button.Click += button_Click;
                     buttonNumber++;
                 }
             }
@@ -78,18 +78,18 @@ namespace SinemaSinema
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // ComboBox1'den seçilen film adını al
+            // ComboBox1'den seçilen film adını alır
             string secilenFilmAd = comboBox1.SelectedItem.ToString();
 
-            // Seçilen film bilgisini al
+            // Seçilen film bilgisini alır
             var secilenFilm = _dbServis.Getfilmler().FirstOrDefault(film => film.filmAd == secilenFilmAd);
 
             if (secilenFilm != null)
             {
-                // Seçilen film için uygun seansları al
+                // Seçilen film için uygun seansları alır
                 var seanslar = _dbServis.Getseans().Where(seans => seans.filmId == secilenFilm.id).ToList();
 
-                // Seansları Combobox2'ye ekle
+                // Seansları Combobox2'ye ekler
                 comboBox2.DataSource = seanslar.Select(seans => seans.seansZamani).ToList();
             }
             KontrolEtVeRenklendir();
@@ -102,20 +102,20 @@ namespace SinemaSinema
             Button button = sender as Button;
             if (button != null)
             {
-                if (button.BackColor == Color.FromArgb(192, 255, 192)) // Eğer butonun rengi açık yeşil ise
+                if (button.BackColor == Color.FromArgb(192, 255, 192)) 
                 {
                     if (tıklamaSayısı < (int)numericUpDown1.Value) // Eğer tıklama sayısı numericUpDown1'den seçilen değere eşit değilse
                     {
-                        button.BackColor = Color.Orange; // Butonun rengini turuncuya çevir
-                        label27.Text += button.Text + ","; // Label'a buton numarasını ekle
-                        //secilenKoltuk.Add(button.Text);
+                        button.BackColor = Color.Orange; // Butonun rengini turuncuya çevirir
+                        label27.Text += button.Text + ","; // Label'a buton numarasını ekler
+                        
                         tıklamaSayısı++;
                     }
                 }
-                else if (button.BackColor == Color.Orange) // Eğer butonun rengi turuncu ise
+                else if (button.BackColor == Color.Orange) 
                 {
-                    button.BackColor = Color.FromArgb(192, 255, 192); // Butonun rengini açık yeşil yap
-                    label27.Text = label27.Text.Replace(button.Text + ",", ""); // Label'dan buton numarasını kaldır
+                    button.BackColor = Color.FromArgb(192, 255, 192); // Butonun rengini açık yeşil yapar
+                    label27.Text = label27.Text.Replace(button.Text + ",", ""); // Label'dan buton numarasını kaldırır
                     tıklamaSayısı--;
                 }
             }
@@ -123,31 +123,31 @@ namespace SinemaSinema
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // ComboBox1'den seçilen film adını al
+            // ComboBox1'den seçilen film adını alır
             string secilenFilmAd = comboBox1.SelectedItem.ToString();
 
             // Seçilen film bilgisini al
             var secilenFilm = _dbServis.Getfilmler().FirstOrDefault(film => film.filmAd == secilenFilmAd);
 
-            // ComboBox2'den seçilen seans zamanını al
+            // ComboBox2'den seçilen seans zamanını alır
             string secilenSeansZamani = comboBox2.SelectedItem.ToString();
 
-            // Seçilen seans bilgisini al
+            // Seçilen seans bilgisini alır
             var secilenSeans = _dbServis.Getseans().FirstOrDefault(seans => seans.seansZamani == secilenSeansZamani && seans.filmId == secilenFilm.id);
 
             if (secilenSeans != null)
             {
-                // Seçilen seansın salonId'sini al
+                // Seçilen seansın salonId'sini alır
                 int salonId = secilenSeans.salonId;
 
-                // salonId'ye göre salonAdi ve salonKapasitesi'ni bul
+                // salonId'ye göre salonAdi ve salonKapasitesi'ni bulur
                 var salonBilgisi = _dbServis.Getsalonlar().FirstOrDefault(salon => salon.id == salonId);
 
                 if (salonBilgisi != null)
                 {
-                    // Bulunan salonAdi'ni label16'da göster
+                    // Bulunan salonAdi'ni label16'da gösterir
                     label14.Text = salonBilgisi.salonAdi;
-                    // Bulunan salonKapasitesi'ni label15'te göster
+                    // Bulunan salonKapasitesi'ni label15'te gösterir
                     label15.Text = salonBilgisi.salonKapasitesi.ToString();
 
                     
@@ -173,10 +173,10 @@ namespace SinemaSinema
 
             if (secilenFilm != null && secilenSeans != null)
             {
-                // Seçilen film ve seans için biletleri filtrele
+                // Seçilen film ve seans için biletleri filtreler
                 var uygunBiletler = _dbServis.GetbiletBilgi().Where(bilet => bilet.filmId == secilenFilm.id && bilet.seansId == secilenSeans.id).ToList();
 
-                // Butonları dolaşarak koltuk numaralarını kontrol et
+                // Butonları dolaşarak koltuk numaralarını kontrol eder
                 for (int i = 5; i <= 54; i++)
                 {
                     Button button = Controls.Find("button" + i, true).FirstOrDefault() as Button;
@@ -185,14 +185,14 @@ namespace SinemaSinema
                         string koltukNumarasi = button.Text;
                         // Biletler arasında koltuk numarasını kontrol et
                         var biletVarMi = uygunBiletler.Any(bilet => bilet.koltukNumarasi == koltukNumarasi);
-                        // Eğer bilet varsa, butonun rengini kırmızı yap
+                        // Eğer bilet varsa, butonun rengini kırmızı yapar
                         if (biletVarMi)
                         {
                             button.BackColor = Color.Red;
                         }
                         else
                         {
-                            // Eğer bilet yoksa, butonun rengini açık yeşil yap ve yeşil buton sayısını artır
+                            // Eğer bilet yoksa, butonun rengini açık yeşil yapar ve yeşil buton sayısını artırır
                             button.BackColor = Color.FromArgb(192, 255, 192); // Açık yeşil renk
                             yesilButonSayisi++; // Yeşil yanan buton sayısını artır
                         }
@@ -200,7 +200,7 @@ namespace SinemaSinema
                 }
             }
 
-            label16.Text = yesilButonSayisi.ToString(); // Yeşil yanan buton sayısını label16'ya yaz
+            label16.Text = yesilButonSayisi.ToString(); // Yeşil yanan buton sayısını label16'ya yazar
 
             numericUpDown1.Minimum = 1;
             numericUpDown1.Maximum = yesilButonSayisi;
@@ -210,7 +210,7 @@ namespace SinemaSinema
             // numericUpDown1'den seçilen değeri al
             int secilenDeger = (int)numericUpDown1.Value;
 
-            // Hesaplama yap
+            // Hesaplama yapar
             int sonuc = secilenDeger * 200;
 
             label20.Text = sonuc.ToString() + " TL";
